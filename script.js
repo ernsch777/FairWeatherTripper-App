@@ -1,11 +1,6 @@
 let weather = {
     apiKey: "68219aab5bbb48fe97a4f322fc15c400",
     fetchWeather: function (city) {
-        // fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
-        //     .then((response) => {
-        //         return response.json(); }).then((data) => this.displayWeather(data));
-        //let resposneError = response.status;
-
         fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
             .then((response) => {
                 if (!response.ok) {
@@ -15,7 +10,14 @@ let weather = {
                 return response.json();
             })
             .then((data) => this.displayWeather(data));
+        if (responseError == "204") {
+            console.log("Please reenter a valid city name or location.");
+        }
     },
+
+    fetch("https:/m/posts/1").then(r => r.json().then(data => ({ status: r.status, body: data }))).then(obj => console.log(obj));
+
+
     displayWeather: function (data) {
         //     if (responseError == "204") {
         // console.log("Please reenter a valid city name or location.");
