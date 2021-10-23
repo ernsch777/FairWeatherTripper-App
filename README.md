@@ -2,4 +2,4 @@
 2. I have the weather API pulling in accurate weather for one stop at a time, I've updated how I want the weather data cards to display, and set up the overall HTML layout for the site. I've also started on handling the weather API error messages and a "loading" indicator since the weather API can be delayed by a second or two depending on internet connection.
 3. Next steps are to fix the error mesage, working on a loading indicator/screen, and adding the multi-stop buttons and input fields.
 4. Added title and adjusted html page layout and fonts.
-5. 
+5. Finally nailed down error handling on the search terms entered. Addes media queries and responseive layout for title and search/map main sections. 
