@@ -16,18 +16,23 @@ body {
 
 header {
     margin-top: 3em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     max-width: 1000px;
     padding: 0 4em;
 }
-.subhead{
+.subheader{
     font-family: 'Nixie One', cursive;
     font-style: italic;
+    font-size: 1.4em;
+    letter-spacing: 1px;
 }
 .main {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 90%;
+    max-width: 1200px;
+    min-width: 800px;
 }
 
 .search, .map {
@@ -94,3 +99,54 @@ position: absolute;
 top: 0;
 left: 20px;
 }  */
+
+
+
+
+
+
+@media screen and ( max-width: 800px){
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .search, .map {
+        width: 500px;
+    }
+
+}
+@media screen and ( max-width: 630px){
+    header {
+        padding: 0 1em;
+        margin-top: 2.5em;
+        margin-bottom: 1.5em;
+    }
+    header, h1 {
+        font-size: 1.3em;
+    }
+    .subheader{
+        font-size: .9em;
+        letter-spacing: 1px;
+    }
+    .search, .map {
+        width: 400px;
+    }
+}
+@media screen and ( max-width: 475px){
+    header {
+        padding: 0 .7em;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+    header, h1 {
+        font-size: 1.1em;
+    }
+    .subheader{
+        font-size: .7em;
+    }
+    .search, .map {
+        width: 300px;
+    }
+}

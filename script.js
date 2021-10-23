@@ -3,9 +3,9 @@ let weather = {
     fetchWeather: function (city) {
         fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
             .then((response) => {
-                if (!response.ok) {
-                    alert("No weather found.");
-                    throw new Error("No weather found.");
+                if (response.status == "204") {
+                    alert("Could not locate desired city or coordinates. Please try to enter again.");
+                    // throw new Error("No weather found.");
                 }
                 return response.json();
             })
@@ -15,17 +15,10 @@ let weather = {
         }
     },
 
-    fetch("https:/m/posts/1").then(r => r.json().then(data => ({ status: r.status, body: data }))).then(obj => console.log(obj));
-
 
     displayWeather: function (data) {
-        //     if (responseError == "204") {
-        // console.log("Please reenter a valid city name or location.");
-        //     } else {
         const { city_name } = data;
         const { high_temp, low_temp, pop, rh, wind_spd, wind_gust_spd } = data.data[0];
-        // const { temp, humidity } = data.main;
-        // const { speed } = data.wind;
         //document.querySelector(".weather.loading").innerText = "Weather in " + city_name;content: "Loading...";
         document.querySelector(".city_name").innerText = "Weather in " + city_name;
         // document.querySelector(".icon").src = "https://openweathermap.org/img/wn/" + icon + ".png";
@@ -37,8 +30,6 @@ let weather = {
         document.querySelector(".wind").innerText = `Wind speed: ${wind_spd} km/h`;
         document.querySelector(".gust").innerText = `Wind gusts up to: ${wind_gust_spd} km/h`;
         // document.querySelector(".weather").classList.remove("loading");
-        // document.body.style.backgroundImage = "2021 Trip Map Rough Draft.png";
-        //}
     },
     search: function () {
         this.fetchWeather(document.querySelector(".search-bar").value);
