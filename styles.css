@@ -43,6 +43,12 @@ border-radius: 15px;
 width: 45%;
 margin: 1em;
 }
+#isItLoaded {
+    display: none;
+}
+#loading {
+   
+}
 .map{
     font-family: 'Fanwood Text', serif;
 }
