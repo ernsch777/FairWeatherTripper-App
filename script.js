@@ -1,17 +1,22 @@
 let weather = {
     apiKey: "68219aab5bbb48fe97a4f322fc15c400",
-    fetchWeather: function (city) {
-        fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
-            .then((response) => {
-                if (response.status == "204") {
-                    alert("Could not locate desired city or coordinates. Please try to enter again.");
-                    // throw new Error("No weather found.");
-                }
-                return response.json();
-            })
-            .then((data) => this.displayWeather(data));
-        if (responseError == "204") {
-            console.log("Please reenter a valid city name or location.");
+    fetchWeather: async function (city) {
+        // fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
+        //     .then((response) => {
+        //         if (response.status == "204") {
+        //             alert("Could not locate desired city or coordinates. Please try to enter again.");
+        //             // throw new Error("No weather found.");
+        //         }
+        //         return response.json();
+        //     })
+        //     .then((data) => this.displayWeather(data)); 
+        const response = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey);
+        if (response.status == "204") {
+            alert("Could not locate desired city or coordinates. Please try to enter again.");
+            throw new Error("can't fetch");
+        } else {
+            const data = await response.json();
+            this.displayWeather(data);
         }
     },
 
