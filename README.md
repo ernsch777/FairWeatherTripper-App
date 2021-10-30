@@ -4,3 +4,5 @@
 4. Added title and adjusted html page layout and fonts.
 5. Finally nailed down error handling on the search terms entered. Added media queries and responseive layout for title and search/map main sections. 
 6. Fine tuned error handling and working on loading screen and spacing.
+7. Added thrown error when necessary and added Async/Await code to replace straight forward fetch syntax.
+8. 
