@@ -16,29 +16,34 @@
 <body>
     <header>
         <h1>Welcome to Fair Weather Tripper</h1>
-        <h2 class="subheader">&nbsp;&nbsp;A way to plan your outdoor adventures!</h2>
+        <h2 class="subheader">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A way to plan your outdoor adventures!</h2>
     </header>
     <section class="main">
         <div class="search">
-            <input type="text" class="search-bar" placeholder="Enter cityand state or lat/long">
-            <button>Enter</button>
-            <div id="loading">Loading...</div>
-            <div id="isItLoaded"></div>
+            <div class="data-enter">
+                <input type="text" class="search-bar" placeholder="Enter city and state">
+                <input type="text" class="days" placeholder="Number of days">
+                <button class="add-button">Add</button>
+            </div>
+            <button id="generate">Generate Trip!</button>
+
         </div>
         <div class="map">
             <p>Coming later from google api</p>
 
         </div>
     </section>
+    <div id="loading">Loading...</div>
+    <div id="isItLoaded"></div>
     <section class="weather loading">
         <div class="day1">
-            <h2 class="city_name">A</h2>
-            <h3 class="high">A</h3>
-            <h3 class="low">A</h3>
-            <h4 class="pop">A</h4>
-            <h4 class="rh">A</h4>
-            <h4 class="wind">A</h4>
-            <h4 class="gust">A</h4>
+            <h2 class="city_name"></h2>
+            <h3 class="high"></h3>
+            <h3 class="low"></h3>
+            <h4 class="pop"></h4>
+            <h4 class="rh"></h4>
+            <h4 class="wind"></h4>
+            <h4 class="gust"></h4>
             <!-- <div class="flex">
                 <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
                 <div class="description">A</div>
