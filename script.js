@@ -1,8 +1,8 @@
 let currentDay = 0;
 let destination = [];
-console.log(destination);
 let weather = {
     apiKey: "68219aab5bbb48fe97a4f322fc15c400",
+
     fetchWeather: async function (city) {
         // fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
         //     .then((response) => {
@@ -23,7 +23,6 @@ let weather = {
         }
     },
 
-
     displayWeather: function (data) {
         let { city_name } = data;
         let { high_temp, low_temp, pop, rh, wind_spd, wind_gust_spd } = data.data[0];
@@ -37,19 +36,29 @@ let weather = {
         document.querySelector(".gust").innerText = `Wind gusts up to: ${wind_gust_spd} km/h`;
         // document.querySelector(".weather").classList.remove("loading");
     },
+
     search: function () {
         this.fetchWeather(document.querySelector(".search-bar").value);
     }
 };
-//////////Generate a new trip when button is selected
+//GENERATE TRIP BUTTON SELECTED CODE -- produce cards for each day's weather and calculate the whole trip's mins and maxs
 document.querySelector("#generate").addEventListener("click", function () {
     console.log(destination);
     weather.search();
-    currentDay = 0;
+    currentDay = 0; // Reset the global currentDay for use in another trip
 
 });
-////Two ways to enter the destination and number of days. Stores locations in 'destination' array until needed in generate step
-document.querySelector(".search button").addEventListener("click", function () {
+
+// <div class="search">
+{/* <div class="data-enter">
+        <input type="text" class="search-bar" placeholder="Enter city and state">
+        <input type="text" class="days" placeholder="Number of days">
+        <button class="add-button">Add</button>
+    </div>
+</div>  */}
+
+//ADD BUTTON SELECTED CODE -- Store location in 'destination' array for given number of days until needed in generate step
+document.querySelector(".add-button").addEventListener("click", function () {
     if ((currentDay + Number(document.querySelector(".days").value)) > 16) {
         alert("Accurate weather forecasts exist out to a maximum of 16 days. Please enter a number of days for this stop so the total trip is 16 days or less.");
         throw new Error("User entered too many days. Forecasts exist out to a maximum of 16.");
@@ -58,15 +67,28 @@ document.querySelector(".search button").addEventListener("click", function () {
         destination[i] = document.querySelector(".search-bar").value;
     }
     currentDay = currentDay + Number(document.querySelector(".days").value);
+    var divDataEnter = document.createElement("Div");//create div for another stop
+    divDataEnter.classList.add('data-enter');
+    var searchInput = document.createElement("INPUT");//create another search field
+    searchInput.setAttribute("type", "text");
+    searchInput.setAttribute("placeholder", "Enter city and state");
+    searchInput.classList.add("search-bar");
+    divDataEnter.appendChild(searchInput);
+    var daysInput = document.createElement("INPUT");//create another days field
+    daysInput.setAttribute("type", "text");
+    daysInput.setAttribute("placeholder", "Number of days");
+    daysInput.classList.add("days");
+    divDataEnter.appendChild(daysInput);
+    var btnAdd = document.createElement("Button");//create another add button
+    btnAdd.classList.add("add-button");
+    var textForButton = document.createTextNode("Add");
+    btnAdd.appendChild(textForButton);
+    divDataEnter.appendChild(btnAdd);
+    document.getElementById("search").appendChild(divDataEnter);
     console.log(currentDay);
 });
-document
-    .querySelector(".search-bar").addEventListener("keyup", function (event) {
-        if (event.key == "Enter") {
-            weather.search();
-        }
-    });
-////////// start with ISP location as default starting point and use Seattle as a backup on error
+
+//Start with ISP location as default starting point and use Seattle as a backup on error
 fetch('https://extreme-ip-lookup.com/json/')
     .then(res => res.json())
     .then(response => {
@@ -75,9 +97,6 @@ fetch('https://extreme-ip-lookup.com/json/')
     .catch((data, status) => {
         weather.fetchWeather("Seattle");
     })
-
-
-
 
 
 
@@ -91,16 +110,20 @@ fetch('https://extreme-ip-lookup.com/json/')
 //     paragraph.innerText = inputField.value;
 //     toDoContainer.appendChild(paragraph);
 //     inputField.value = "";
-//     paragraph.addEventListener('click', function(){
-//         paragraph.style.textDecoration = "line-through";
-//     })
-//     paragraph.addEventListener('dblclick', function(){
-//         toDoContainer.removeChild(paragraph);
-//     })
-// })
+//     document.body.onload = addElement;
 
-// <div class="container">
-// <input id="inputField" type="text"><button id="addToDo">+</button>
-// <div class="to-dos" id="toDoContainer">
-// </div>
-// </div>
+
+
+// function addElement () {
+//     // create a new div element
+//     const newDiv = document.createElement("div");
+
+//     // and give it some content
+//     const newContent = document.createTextNode("Hi there and greetings!");
+
+//     // add the text node to the newly created div
+//     newDiv.appendChild(newContent);
+
+//     // add the newly created element and its content into the DOM
+//     const currentDiv = document.getElementById("div1");
+//     document.body.insertBefore(newDiv, currentDiv);}

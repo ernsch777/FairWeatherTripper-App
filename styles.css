@@ -35,7 +35,7 @@ header {
     max-width: 1200px;
     min-width: 800px;
 }
-.search, .map {
+.searchMain, .map {
     display: flex;
     flex-direction: column;
     background: #000000d0;
@@ -56,6 +56,7 @@ header {
 }
 
 .add-button {
+    margin: .2em;
     border-radius: 10px;
     border: solid 1px rgb(129, 129, 129);
     height: 30px;
@@ -89,9 +90,10 @@ input.search-bar {
     color: white;
     font-size: 0.9rem;
     height: 30px;
-    width: calc(100% - 168px);
+    width: calc(100% - 175px);
 }
 input.days{
+    margin: 0.2em;
     border: none;
     outline: none;
     padding: 0.3em 0.5em;
@@ -143,7 +145,7 @@ left: 20px;
         align-items: center;
         justify-content: center;
     }
-    .search, .map {
+    .searchMain, .map {
         width: 500px;
     }
 
@@ -161,7 +163,7 @@ left: 20px;
         font-size: .9em;
         letter-spacing: 1px;
     }
-    .search, .map {
+    .searchMain, .map {
         width: 400px;
     }
 }
@@ -177,7 +179,7 @@ left: 20px;
     .subheader{
         font-size: .7em;
     }
-    .search, .map {
+    .searchMain, .map {
         width: 300px;
     }
 }
