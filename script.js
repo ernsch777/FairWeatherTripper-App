@@ -1,10 +1,9 @@
 let currentDay = 0;
 let destination = [];
-let weatherData = {};
 
 let weather = {
     apiKey: "68219aab5bbb48fe97a4f322fc15c400",
-    fetchWeather: async function (city) {
+    fetchWeather: async function (city, day) {
         // fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
         //     .then((response) => {
         //         if (response.status == "204") {
@@ -20,20 +19,47 @@ let weather = {
             throw new Error("can't fetch");
         } else {
             let data = await response.json();
-            this.displayWeather(data);
+            this.createCard(data, day);
         }
     },
-    displayWeather: function (data) {
-        let { city_name } = data;
-        let { high_temp, low_temp, pop, rh, wind_spd, wind_gust_spd } = data.data[0];
-        document.querySelector(".city_name").innerText = "Weather in " + city_name;
-        document.querySelector(".high").innerText = high_temp + "°F";
-        document.querySelector(".low").innerText = low_temp + "°F";
-        document.querySelector(".pop").innerText = "Chance of precipitation: " + pop + " %";
-        document.querySelector(".rh").innerText = "Humidity: " + rh + "%";
-        document.querySelector(".wind").innerText = `Wind speed: ${wind_spd} km/h`;
-        document.querySelector(".gust").innerText = `Wind gusts up to: ${wind_gust_spd} km/h`;
-        weatherData = data;
+    createCard: function (data, day) {
+        // let { city_name } = data;
+        // let { high_temp, low_temp, pop, rh, wind_spd, wind_gust_spd } = data.data[0];
+        // document.querySelector(".city_name").innerText = "Weather in " + city_name;
+        // document.querySelector(".high").innerText = high_temp + "°F";
+        // document.querySelector(".low").innerText = low_temp + "°F";
+        // document.querySelector(".pop").innerText = "Chance of precipitation: " + pop + " %";
+        // document.querySelector(".rh").innerText = "Humidity: " + rh + "%";
+        // document.querySelector(".wind").innerText = `Wind speed: ${wind_spd} km/h`;
+        // document.querySelector(".gust").innerText = `Wind gusts up to: ${wind_gust_spd} km/h`;
+        var divCard = document.createElement("Div");//create div for a day of weather
+        divCard.classList.add('dayCard');
+        var dayNumber = document.createElement("h1");
+        dayNumber.classList.add('dayTitle');
+        dayNumber.innerText = "Day " + (day + 1);
+        var city = document.createElement("h2");//start creating all of the weather data details
+        city.innerText = data.city_name;
+        var high = document.createElement("h3");
+        high.innerText = "High:  " + data.data[day].high_temp + " °F";
+        var low = document.createElement("h3");
+        low.innerText = "Low:  " + data.data[day].low_temp + " °F";
+        var precip = document.createElement("h4");
+        precip.innerText = "Precipitation:  " + data.data[day].pop + " %";
+        var humidity = document.createElement("h4");
+        humidity.innerText = "Humidity:   " + data.data[day].rh + "%";
+        var windSpeed = document.createElement("h4");
+        windSpeed.innerText = "Wind speed:   " + data.data[day].wind_spd + " mph";
+        var windGust = document.createElement("h4");
+        windGust.innerText = "Wind gusts:   " + data.data[day].wind_gust_spd + " mph";
+        divCard.appendChild(dayNumber);
+        divCard.appendChild(city);
+        divCard.appendChild(high);
+        divCard.appendChild(low);
+        divCard.appendChild(precip);
+        divCard.appendChild(humidity);
+        divCard.appendChild(windSpeed);
+        divCard.appendChild(windGust);
+        document.getElementById("results").appendChild(divCard);
     }
 };
 
@@ -77,42 +103,13 @@ document.querySelector(".add-button").addEventListener("click", function () {
 //GENERATE TRIP BUTTON SELECTED CODE --> produce cards for each day's weather and calculate the whole trip's mins and maxs. Will call createCard function for each day and each day should format with flexbox
 document.querySelector("#generate").addEventListener("click", function () {
     console.log(destination);
-    console.log(currentDay);
-    console.log(weatherData);
     for (let i = 0; i < currentDay; i++) {
-        weather.fetchWeather(destination[i]);
-        console.log(weatherData);
-        createCard();
+        weather.fetchWeather(destination[i], i);
     }
     currentDay = 0; // Reset the global currentDay for use in another trip
 });
 
-function createCard() {
-    var divCard = document.createElement("Div");//create div for a day of weather
-    divCard.classList.add('dayCard');
-    var city = document.createElement("h2");//start creating all of the weather data details
-    city.innerHTML = weatherData.city_name;
-    var high = document.createElement("h3");
-    high.innerText = weatherData.data[0].high_temp;
-    var low = document.createElement("h3");
-    low.innerHtml = weatherData.data[0].low_temp;
-    var precip = document.createElement("h4");
-    precip.innerHtml = weatherData.data[0].pop;
-    var humidity = document.createElement("h4");
-    humidity.innerHtml = weatherData.data[0].rh;
-    var windSpeed = document.createElement("h4");
-    windSpeed.innerHtml = weatherData.data[0].wind;
-    var windGust = document.createElement("h4");
-    windGust.innerHtml = weatherData.data[0].gust;
-    divCard.appendChild(city);
-    divCard.appendChild(high);
-    divCard.appendChild(low);
-    divCard.appendChild(precip);
-    divCard.appendChild(humidity);
-    divCard.appendChild(windSpeed);
-    divCard.appendChild(windGust);
-    document.getElementById("results").appendChild(divCard);
-}
+
 
 
 
