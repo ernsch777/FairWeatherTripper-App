@@ -6,4 +6,5 @@
 6. Fine tuned error handling and working on loading screen and spacing.
 7. Added thrown error when necessary and added Async/Await code to replace straight forward fetch syntax.
 8. Added number of days layout, array, error handling, and location array to store all of the locations entered up to a maximum of 16 days - which is the max the Weatherbit.io api can handle. It was the longest forecast api I could find. Ready to start generating the cards as needed for each day and location entered. 
-9. Skipped to adding multip day fields, but could not get the javascript-created buttons to respond to a click event listner, only the first button of that class would. So I am going to add the text above the button separately and keep only one button on the page at a time. I think that will look better anyway. 
+9. Skipped to adding multi trip day fields, but could not get the javascript-created buttons to respond to a click event listner, only the first button of that class would. So I am going to add the text above the button separately and keep only one button on the page at a time. I think that will look better anyway. 
+10. Fixed formatting, added card functionality and callbacks, but weather calls not working for more than one day/call at a time.  Rearranging the structure of the code currently.
