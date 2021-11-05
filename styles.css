@@ -20,7 +20,7 @@ header {
     max-width: 1000px;
     padding: 0 4em;
 }
-.subheader{
+.subheader {
     font-family: 'Nixie One', cursive;
     font-style: italic;
     font-size: 1.4em;
@@ -35,53 +35,54 @@ header {
     max-width: 1200px;
     min-width: 800px;
 }
-.searchMain, .map {
+.searchMain, .map, .dayCard {
     display: flex;
     flex-direction: column;
     background: #000000d0;
     color: white;
-    padding: 1em 0.4em;
+    padding: 1em 0.4em 1em 0.8em;
     border-radius: 15px;
     width: 45%;
     margin: 0.8em;
 }
-#isItLoaded {
-    display: none;
-}
-#loading {
-   
-}
+
 .map{
     font-family: 'Fanwood Text', serif;
 }
+.dayCard{
+    height: 200px;
+    width: 200px;
+}
 
-.add-button {
+.add-button, .delete-button {
     margin: .2em;
     border-radius: 10px;
     border: solid 1px rgb(129, 129, 129);
     height: 30px;
-    width: 40px;
+    width: 50px;
     outline: none;
     background: #7c7c7c2b;
     color: white;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
     font-size: 0.9rem;
+}
+.add-button {
+    margin-left: 0;
 }
 #generate {
     border-radius: 10px;
     margin: 0 auto;
-    margin-top: 1.1rem;
-    padding: 0.5em 1em;
+    margin-top: 0.9rem;
     border: solid 1px rgb(129, 129, 129);
     outline: none;
     background: #7c7c7c2b;
     color: white;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    width: 150px;
+    height: 40px;
 }
-input.search-bar {
+input.search-bar, .city-input {
     border: none;
     outline: none;
     padding: 0.4em 0.5em;
@@ -90,9 +91,24 @@ input.search-bar {
     color: white;
     font-size: 0.9rem;
     height: 30px;
-    width: calc(100% - 175px);
+    width: calc(100% - 145px);
+    display: inline-block;
+    text-align: inherit;
 }
 input.days{
+    margin: 0.2em 0;
+    border: none;
+    outline: none;
+    padding: 0.3em 0.5em;
+    border-radius: 10px;
+    background: #7c7c7c2b;
+    color: white;
+    font-size: 0.9rem;
+    height: 30px;
+    width: 80px;
+    display: inline-block;
+}
+.days-input{
     margin: 0.2em;
     border: none;
     outline: none;
@@ -102,41 +118,21 @@ input.days{
     color: white;
     font-size: 0.9rem;
     height: 30px;
-    width: 116px;
+    width: 80px;
+    display: inline-block;
 }
-    
 button:hover {
-background: #7c7c7c6b;
+    background: #7c7c7c6b;
+    transition: 0.2s ease-in-out;
+    border: solid 1px white;
 }
 
-h3.temp {
-margin: 0;
-margin-bottom: 0.4em;
+#generate:hover {
+    background: rgb(50, 133, 50);
+    letter-spacing: 1px;
+    border: solid 1px white;
+    transition: 0.2s ease-in-out;
 }
-
-.description {
-text-transform: capitalize;
-}
-/* 
-.weather.loading {
-visibility: hidden;
-max-height: 20px;
-position: relative;
-}
-
-.weather.loading:after {
-visibility: visible;
-content: "Loading...";
-color: white;
-position: absolute;
-top: 0;
-left: 20px;
-}  */
-
-
-
-
-
 
 @media screen and ( max-width: 800px){
     .main {

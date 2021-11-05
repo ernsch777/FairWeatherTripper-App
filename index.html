@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Nixie+One&family=Quicksand&display=swap" rel="stylesheet">
     <script src="script.js" defer></script>
 </head>
-
 <body>
     <header>
         <h1>Welcome to Fair Weather Tripper</h1>
@@ -21,33 +20,29 @@
     <section class="main">
         <div class="searchMain">
             <div id="search">
-                <div class="data-enter">
+                <div id="data-enter">
                     <input type="text" class="search-bar" placeholder="Enter city and state">
-                    <input type="text" class="days" placeholder="Number of days">
+                    <input type="text" class="days" placeholder="# of days">
                     <button class="add-button">Add</button>
                 </div>
             </div>
-            <button id="generate">Generate Trip!</button>
+            <button id="generate">Generate Trip</button>
         </div>
         <div class="map">
             <p>Coming later from google api</p>
         </div>
-    </section>
-    <div id="loading">Loading...</div>
-    <div id="isItLoaded"></div>
-    <section class="weather loading">
-        <div class="day1">
-            <h2 class="city_name"></h2>
-            <h3 class="high"></h3>
-            <h3 class="low"></h3>
-            <h4 class="pop"></h4>
-            <h4 class="rh"></h4>
-            <h4 class="wind"></h4>
-            <h4 class="gust"></h4>
-            <!-- <div class="flex">
-                <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
-                <div class="description">A</div>
-            </div> -->
+    </section>  
+    <section class="weather-cards">
+        <div id="results">
+            <div class="day1">
+                <h2 class="city_name"></h2>
+                <h3 class="high"></h3>
+                <h3 class="low"></h3>
+                <h4 class="pop"></h4>
+                <h4 class="rh"></h4>
+                <h4 class="wind"></h4>
+                <h4 class="gust"></h4>
+            </div>
         </div>
     </section>
 </body>
