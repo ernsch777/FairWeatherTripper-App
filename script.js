@@ -3,53 +3,45 @@ let destination = [];
 
 let weather = {
     apiKey: "68219aab5bbb48fe97a4f322fc15c400",
-    fetchWeather: async function (city, day) {
-        // fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
-        //     .then((response) => {
-        //         if (response.status == "204") {
-        //             alert("Could not locate desired city or coordinates. Please try to enter again.");
-        //             // throw new Error("No weather found.");
-        //         }
-        //         return response.json();
-        //     })
-        //     .then((data) => this.displayWeather(data)); 
-        const response = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey);
-        if (response.status == "204") {
-            alert("Could not locate desired city or coordinates. Please try to enter again or check internet connection.");
-            throw new Error("can't fetch");
-        } else {
-            let data = await response.json();
-            this.createCard(data, day);
-        }
+    fetchWeather: /*async*/ function (city, day) {
+        fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
+            .then((response) => {
+                if (response.status == "204") {
+                    alert("Could not locate desired city or coordinates. Please try to enter again or check internet connection.");
+                    throw new Error("No weather found for location indicated. Bad location or internet connection.");
+                }
+                return response.json();
+            })
+            .then((data) => this.createCard(data, day));
+        // const response = await fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey);
+        // if (response.status == "204") {
+        //     alert("Could not locate desired city or coordinates. Please try to enter again or check internet connection.");
+        //     throw new Error("can't fetch");
+        // } else {
+        //     let data = await response.json();
+        //     this.createCard(data, day);
+        // }
     },
     createCard: function (data, day) {
-        // let { city_name } = data;
-        // let { high_temp, low_temp, pop, rh, wind_spd, wind_gust_spd } = data.data[0];
-        // document.querySelector(".city_name").innerText = "Weather in " + city_name;
-        // document.querySelector(".high").innerText = high_temp + "°F";
-        // document.querySelector(".low").innerText = low_temp + "°F";
-        // document.querySelector(".pop").innerText = "Chance of precipitation: " + pop + " %";
-        // document.querySelector(".rh").innerText = "Humidity: " + rh + "%";
-        // document.querySelector(".wind").innerText = `Wind speed: ${wind_spd} km/h`;
-        // document.querySelector(".gust").innerText = `Wind gusts up to: ${wind_gust_spd} km/h`;
-        var divCard = document.createElement("Div");//create div for a day of weather
+        let divCard = document.createElement("Div");//create div for a day of weather
         divCard.classList.add('dayCard');
-        var dayNumber = document.createElement("h1");
+        divCard.id = day;
+        let dayNumber = document.createElement("h1");
         dayNumber.classList.add('dayTitle');
         dayNumber.innerText = "Day " + (day + 1);
-        var city = document.createElement("h2");//start creating all of the weather data details
+        let city = document.createElement("h2");//start creating all of the weather data details
         city.innerText = data.city_name;
-        var high = document.createElement("h3");
+        let high = document.createElement("h3");
         high.innerText = "High:  " + data.data[day].high_temp + " °F";
-        var low = document.createElement("h3");
+        let low = document.createElement("h3");
         low.innerText = "Low:  " + data.data[day].low_temp + " °F";
-        var precip = document.createElement("h4");
+        let precip = document.createElement("h4");
         precip.innerText = "Precipitation:  " + data.data[day].pop + " %";
-        var humidity = document.createElement("h4");
+        let humidity = document.createElement("h4");
         humidity.innerText = "Humidity:   " + data.data[day].rh + "%";
-        var windSpeed = document.createElement("h4");
+        let windSpeed = document.createElement("h4");
         windSpeed.innerText = "Wind speed:   " + data.data[day].wind_spd + " mph";
-        var windGust = document.createElement("h4");
+        let windGust = document.createElement("h4");
         windGust.innerText = "Wind gusts:   " + data.data[day].wind_gust_spd + " mph";
         divCard.appendChild(dayNumber);
         divCard.appendChild(city);
@@ -59,12 +51,9 @@ let weather = {
         divCard.appendChild(humidity);
         divCard.appendChild(windSpeed);
         divCard.appendChild(windGust);
-        document.getElementById("results").appendChild(divCard);
+        document.getElementById("results").append(divCard);
     }
 };
-
-//Starting with Seattle as our default weather call
-//weather.fetchWeather("Seattle");
 
 //ADD BUTTON SELECTED CODE -- Store location in 'destination' array for given number of days until needed in generate step
 document.querySelector(".add-button").addEventListener("click", function () {
@@ -77,23 +66,28 @@ document.querySelector(".add-button").addEventListener("click", function () {
             destination[i] = document.querySelector(".search-bar").value;
         }
         currentDay = currentDay + Number(document.querySelector(".days").value);
-        var divDataEnter = document.createElement("Div");//create div for another stop
-        var cityInput = document.createElement("p");//solidify the location selected
+        let divDataEnter = document.createElement("Div");//create div for another stop
+        let cityInput = document.createElement("p");//solidify the location selected
         cityInput.innerText = document.querySelector(".search-bar").value;
         cityInput.classList.add("city-input");
         divDataEnter.appendChild(cityInput);
-        var daysInput = document.createElement("p");//solidify the number of days selected
+        let daysInput = document.createElement("p");//solidify the number of days selected
         daysInput.innerText = document.querySelector(".days").value;
         daysInput.classList.add("days-input");
         divDataEnter.appendChild(daysInput);
-        var btnDelete = document.createElement("Button");//create a delete button
+        let btnDelete = document.createElement("Button");//create a delete button
         btnDelete.classList.add("delete-button");
-        var textForButton = document.createTextNode("Delete");
+        let textForButton = document.createTextNode("Delete");
         btnDelete.appendChild(textForButton);
         divDataEnter.appendChild(btnDelete);
-        var inputDiv = document.getElementById("data-enter");
-        var parentDiv = inputDiv.parentNode;
+        let inputDiv = document.getElementById("data-enter");
+        let parentDiv = inputDiv.parentNode;
         parentDiv.insertBefore(divDataEnter, inputDiv);
+        let firstInput = document.getElementById("location-input");
+        document.getElementById("location-input").value = "";
+        document.getElementById("location-input").placeholder = "Enter next city and state";
+        document.getElementById("days-input").value = "";
+        document.getElementById("days-input").placeholder = "# of days";
     } else {
         alert("Please enter the number of days planned for this stop before trying to add it to your trip.");
         throw new Error("User forgot to enter the number of days for potential new stop.");
@@ -102,14 +96,90 @@ document.querySelector(".add-button").addEventListener("click", function () {
 
 //GENERATE TRIP BUTTON SELECTED CODE --> produce cards for each day's weather and calculate the whole trip's mins and maxs. Will call createCard function for each day and each day should format with flexbox
 document.querySelector("#generate").addEventListener("click", function () {
-    console.log(destination);
-    for (let i = 0; i < currentDay; i++) {
+    let generatingText = document.createElement("Div");//When clicked, we first append the loading text and make it visibile will keeping the generated results hidden until complete and sorted in order of day
+    generatingText.classList.add("loading-text");
+    generatingText.innerText = "Generating your dream getaway as we speak. ";
+    let loadingText = document.createElement("Div");
+    loadingText.classList.add("loading-text");
+    loadingText.innerText = "LO.....";
+    loadingText.id = "loading-steps";
+    document.getElementById("loading").append(generatingText);
+    document.getElementById("loading").append(loadingText);
+    document.getElementById("loading").style.visibility = "visible";
+    document.getElementById("results").style.visibility = "hidden";
+    for (let i = 0; i < currentDay; i++) {//Next we fetch the api weather data for each day and location requested
         weather.fetchWeather(destination[i], i);
     }
+    setTimeout(function () {//While fetching the data, we spell out "LOADING...." to let the user know the app is working behind the scenes
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOA....";
+    }, 1500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOAD...";
+    }, 3500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADI..";
+    }, 5500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADIN.";
+    }, 7500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADING";
+    }, 9500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADING.";
+    }, 11500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADING..";
+    }, 13500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADING...";
+    }, 15500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADING....";
+    }, 17500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADING.....";
+    }, 19500);
+    setTimeout(function () {
+        let loading = document.getElementById("loading-steps");
+        loading.innerHTML = "LOADING......";
+    }, 22000);
+    setTimeout(function () {//We must time the display of the weather cards to ensure they are in order and ready to be fully displayed
+        let mylist = document.getElementById("results");
+        let divs = mylist.getElementsByTagName("div");
+        let listitems = [];
+        for (i = 0; i < divs.length; i++) {
+            listitems.push(divs.item(i));
+        }
+        listitems.sort(compareFunction);
+        function compareFunction(a, b) {//We sort numerically and append back onto the container div "results"
+            return a - b;
+        }
+        for (i = 0; i < listitems.length; i++) {
+            mylist.appendChild(listitems[i]);
+        }
+        document.getElementById("loading").style.display = "none";//Make the loading screen hidder
+        document.getElementById("results").style.display = "inherit";//Make the sorted results visibile
+        document.getElementById("results").style.visibility = "visible";
+    }, (currentDay * 1500));
     currentDay = 0; // Reset the global currentDay for use in another trip
 });
 
+function tripHighlights() {
 
+
+
+}
 
 
 
