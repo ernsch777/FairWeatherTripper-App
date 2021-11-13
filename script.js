@@ -3,8 +3,8 @@ let destination = [];
 
 let weather = {
     apiKey: "68219aab5bbb48fe97a4f322fc15c400",
-    fetchWeather: /*async*/ function (city, day) {
-        fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + city + "&units=I&key=" + this.apiKey)
+    fetchWeather: /*async*/ function (day) {
+        fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + destination[day] + "&units=I&key=" + this.apiKey)
             .then((response) => {
                 if (response.status == "204") {
                     alert("Could not locate desired city or coordinates. Please try to enter again or check internet connection.");
@@ -57,46 +57,52 @@ let weather = {
 
 //ADD BUTTON SELECTED CODE -- Store location in 'destination' array for given number of days until needed in generate step
 document.querySelector(".add-button").addEventListener("click", function () {
-    if ((currentDay + Number(document.querySelector(".days").value)) > 16) {
+    if ((currentDay + Number(document.querySelector(".days").value)) > 16) {//Check for the maximum number of days before proceeding
         alert("Accurate weather forecasts exist out to a maximum of 16 days. Please enter a number of days for this stop so the total trip is 16 days or less.");
         throw new Error("User entered too many days. Forecasts exist out to a maximum of 16 days.");
     }
-    if (document.querySelector(".days").value) {//Check for the numnber of days before proceeding
-        for (let i = currentDay; i < (Number(document.querySelector(".days").value) + currentDay); i++) {
-            destination[i] = document.querySelector(".search-bar").value;
-        }
-        currentDay = currentDay + Number(document.querySelector(".days").value);
-        let divDataEnter = document.createElement("Div");//create div for another stop
-        let cityInput = document.createElement("p");//solidify the location selected
-        cityInput.innerText = document.querySelector(".search-bar").value;
-        cityInput.classList.add("city-input");
-        divDataEnter.appendChild(cityInput);
-        let daysInput = document.createElement("p");//solidify the number of days selected
-        daysInput.innerText = document.querySelector(".days").value;
-        daysInput.classList.add("days-input");
-        divDataEnter.appendChild(daysInput);
-        let btnDelete = document.createElement("Button");//create a delete button
-        btnDelete.classList.add("delete-button");
-        let textForButton = document.createTextNode("Delete");
-        btnDelete.appendChild(textForButton);
-        divDataEnter.appendChild(btnDelete);
-        let inputDiv = document.getElementById("data-enter");
-        let parentDiv = inputDiv.parentNode;
-        parentDiv.insertBefore(divDataEnter, inputDiv);
-        let firstInput = document.getElementById("location-input");
-        document.getElementById("location-input").value = "";
-        document.getElementById("location-input").placeholder = "Enter next city and state";
-        document.getElementById("days-input").value = "";
-        document.getElementById("days-input").placeholder = "# of days";
-    } else {
+    if (!document.querySelector(".days").value) {//Check for the number of days before proceeding
         alert("Please enter the number of days planned for this stop before trying to add it to your trip.");
         throw new Error("User forgot to enter the number of days for potential new stop.");
     }
+    const cityTest = document.querySelector(".search-bar").value;
+    fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + cityTest + "&units=I&key=" + weather.apiKey).then((response) => {
+        if (response.status == "204" || response.status == "400") {
+            alert("Could not locate desired city or coordinates. Please try to enter again or check internet connection.");
+            throw new Error("Bad location or internet connection.");
+        } else {
+            for (let i = currentDay; i < (Number(document.querySelector(".days").value) + currentDay); i++) {//adds location entered to destination array for the number of days indicated
+                destination[i] = document.querySelector(".search-bar").value;
+            }
+            currentDay = currentDay + Number(document.querySelector(".days").value);
+            let divDataEnter = document.createElement("Div");//create div for another stop
+            let cityInput = document.createElement("p");//solidify the location selected
+            cityInput.innerText = document.querySelector(".search-bar").value;
+            cityInput.classList.add("city-input");
+            divDataEnter.appendChild(cityInput);
+            let daysInput = document.createElement("p");//solidify the number of days selected
+            daysInput.innerText = document.querySelector(".days").value;
+            daysInput.classList.add("daysInput");
+            divDataEnter.appendChild(daysInput);
+            let btnDelete = document.createElement("Button");//create a delete button
+            btnDelete.classList.add("delete-button");
+            let textForButton = document.createTextNode("Delete");
+            btnDelete.appendChild(textForButton);
+            divDataEnter.appendChild(btnDelete);
+            let inputDiv = document.getElementById("data-enter");
+            let parentDiv = inputDiv.parentNode;
+            parentDiv.insertBefore(divDataEnter, inputDiv);
+            document.getElementById("locationInput").value = "";
+            document.getElementById("locationInput").placeholder = "Enter next city and state";
+            document.getElementById("daysInput").value = "";
+            document.getElementById("daysInput").placeholder = "# of days";
+        }
+    });
 });
 
 //GENERATE TRIP BUTTON SELECTED CODE --> produce cards for each day's weather and calculate the whole trip's mins and maxs. Will call createCard function for each day and each day should format with flexbox
 document.querySelector("#generate").addEventListener("click", function () {
-    let generatingText = document.createElement("Div");//When clicked, we first append the loading text and make it visibile will keeping the generated results hidden until complete and sorted in order of day
+    let generatingText = document.createElement("Div");//When clicked, we first append the loading text and make it visibile while keeping the generated results hidden until complete and sorted in order of day
     generatingText.classList.add("loading-text");
     generatingText.innerText = "Generating your dream getaway as we speak. ";
     let loadingText = document.createElement("Div");
@@ -108,7 +114,7 @@ document.querySelector("#generate").addEventListener("click", function () {
     document.getElementById("loading").style.visibility = "visible";
     document.getElementById("results").style.visibility = "hidden";
     for (let i = 0; i < currentDay; i++) {//Next we fetch the api weather data for each day and location requested
-        weather.fetchWeather(destination[i], i);
+        weather.fetchWeather(i);
     }
     setTimeout(function () {//While fetching the data, we spell out "LOADING...." to let the user know the app is working behind the scenes
         let loading = document.getElementById("loading-steps");
@@ -154,22 +160,23 @@ document.querySelector("#generate").addEventListener("click", function () {
         let loading = document.getElementById("loading-steps");
         loading.innerHTML = "LOADING......";
     }, 22000);
-    setTimeout(function () {//We must time the display of the weather cards to ensure they are in order and ready to be fully displayed
+    setTimeout(function () {//We must time the display of the weather cards to ensure they are in chronological order and ready to be fully displayed, otherwise async/await will display them when done and out of order
         let mylist = document.getElementById("results");
         let divs = mylist.getElementsByTagName("div");
         let listitems = [];
         for (i = 0; i < divs.length; i++) {
             listitems.push(divs.item(i));
+            console.log(listitems);
         }
         listitems.sort(compareFunction);
         function compareFunction(a, b) {//We sort numerically and append back onto the container div "results"
-            return a - b;
+            return a.id - b.id;
         }
         for (i = 0; i < listitems.length; i++) {
             mylist.appendChild(listitems[i]);
         }
-        document.getElementById("loading").style.display = "none";//Make the loading screen hidder
-        document.getElementById("results").style.display = "inherit";//Make the sorted results visibile
+        document.getElementById("loading").style.display = "none";//Make the loading screen hidden
+        document.getElementById("results").style.display = "inherit";//Make the sorted results visible
         document.getElementById("results").style.visibility = "visible";
     }, (currentDay * 1500));
     currentDay = 0; // Reset the global currentDay for use in another trip

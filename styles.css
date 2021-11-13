@@ -193,7 +193,7 @@ input.days{
     width: 80px;
     display: inline-block;
 }
-.days-input{
+.daysInput{
     margin: 0.2em;
     border: none;
     outline: none;
