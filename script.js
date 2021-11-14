@@ -230,3 +230,12 @@ function tripHighlights() {
 //     const currentDiv = document.getElementById("div1");
 //     document.body.insertBefore(newDiv, currentDiv);}
 
+// To-Do items:
+// 1. Add delete button functionality
+// 2. Add trip highlights
+// 3. Prettify website
+// 4. Host site online with Netlify
+
+// 5. Add google maps interface and display
+// 6. Research 504 error handling more and try to fix for large # of stops
+// 7. Change generate button to "Plan Another Trip" text and functionality
