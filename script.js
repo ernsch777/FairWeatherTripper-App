@@ -4,6 +4,13 @@ let stopCounter = 0;
 let destination = [];
 let iteration = [];
 
+let tripHigh = 0;
+let tripLow = 0;
+let tripPrecip = 0;
+let tripHumid = 0;
+let tripWind = 0;
+let tripGust = 0;
+
 //ADD BUTTON SELECTED CODE -- Stores location in 'destination' array and counts stops and days
 document.querySelector(".add-button").addEventListener("click", function () {
     if ((totalDays + Number(document.querySelector(".days").value)) > 16) {//Check for the maximum number of days before proceeding
@@ -126,7 +133,9 @@ document.querySelector("#generate").addEventListener("click", function () {
         for (i = 0; i < listitems.length; i++) {
             mylist.appendChild(listitems[i]);
         }
+        tripHighlights();
         document.getElementById("loading").style.display = "none";//Make the loading screen hidden
+        document.getElementById("highlights").style.visibility = "visible";//Make the trip highlights piece visibile
         document.getElementById("results").style.display = "inherit";//Make the sorted results visible
         document.getElementById("results").style.visibility = "visible";
     }, (totalDays * 1500));
@@ -156,7 +165,7 @@ let weather = {
         //     this.createCards(data, day);
         // }
     },
-    createCards: function (data, day, stop) {//Generates a weather display card for the day indicated
+    createCards: function (data, day, stop) {//Generates a weather display card for the days indicated
         for (let i = 0; i < iteration[stop]; i++) {
             let cardDay = day + i;
             let divCard = document.createElement("Div");//create div for a day of weather
@@ -169,16 +178,34 @@ let weather = {
             city.innerText = data.city_name;
             let high = document.createElement("h3");
             high.innerText = "High:  " + data.data[cardDay].high_temp + " °F";
+            if (data.data[cardDay].high_temp > tripHigh) {
+                tripHigh = data.data[cardDay].high_temp;
+            }
             let low = document.createElement("h3");
             low.innerText = "Low:  " + data.data[cardDay].low_temp + " °F";
+            if (data.data[cardDay].high_temp > tripLow) {
+                tripLow = data.data[cardDay].low_temp;
+            }
             let precip = document.createElement("h4");
             precip.innerText = "Precipitation:  " + data.data[cardDay].pop + " %";
+            if (data.data[cardDay].pop > tripPrecip) {
+                tripPrecip = data.data[cardDay].pop;
+            }
             let humidity = document.createElement("h4");
             humidity.innerText = "Humidity:   " + data.data[cardDay].rh + "%";
+            if (data.data[cardDay].rh > tripHumid) {
+                tripHumid = data.data[cardDay].rh;
+            }
             let windSpeed = document.createElement("h4");
             windSpeed.innerText = "Wind speed:   " + data.data[cardDay].wind_spd + " mph";
+            if (data.data[cardDay].wind_spd > tripWind) {
+                tripWind = data.data[cardDay].wind_spd;
+            }
             let windGust = document.createElement("h4");
             windGust.innerText = "Wind gusts:   " + data.data[cardDay].wind_gust_spd + " mph";
+            if (data.data[cardDay].wind_gust_spd > tripGust) {
+                tripGust = data.data[cardDay].wind_gust_spd;
+            }
             divCard.appendChild(dayNumber);
             divCard.appendChild(city);
             divCard.appendChild(high);
@@ -188,6 +215,7 @@ let weather = {
             divCard.appendChild(windSpeed);
             divCard.appendChild(windGust);
             document.getElementById("results").append(divCard);
+
         }
     }
 };
@@ -195,9 +223,25 @@ let weather = {
 
 
 function tripHighlights() {
-
-
-
+    let mainHighlights = document.getElementById("highlights");
+    let tHigh = document.createElement("p");
+    tHigh.innerText = "Highest temperature on trip:  " + tripHigh + " °F";
+    let tLow = document.createElement("p");
+    tLow.innerText = "Lowest temperature on trip:  " + tripLow + " °F";
+    let tPrecip = document.createElement("p");
+    tPrecip.innerText = "Highest precipitation expected:  " + tripPrecip + " %";
+    let tHumid = document.createElement("p");
+    tHumid.innerText = "Highest humidity expected:   " + tripHumid + "%";
+    let tWind = document.createElement("p");
+    tWind.innerText = "Wind speed:   " + tripWind + " mph";
+    let tGust = document.createElement("p");
+    tGust.innerText = "Wind gusts:   " + tripGust + " mph";
+    mainHighlights.appendChild(tHigh);
+    mainHighlights.appendChild(tLow);
+    mainHighlights.appendChild(tPrecip);
+    mainHighlights.appendChild(tHumid);
+    mainHighlights.appendChild(tWind);
+    mainHighlights.appendChild(tGust);
 }
 
 
@@ -237,5 +281,5 @@ function tripHighlights() {
 // 4. Host site online with Netlify
 
 // 5. Add google maps interface and display
-// 6. Research 504 error handling more and try to fix for large # of stops
+// 6. Research 504 error handling more and try to fix for large # of stops (stop into freecodecamp)
 // 7. Change generate button to "Plan Another Trip" text and functionality

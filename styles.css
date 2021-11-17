@@ -55,6 +55,15 @@ header {
     width: 45%;
     margin: 0.8em;
 }
+#highlights {
+    background: #000000d0;
+    color: white;
+    padding: 1em 0.4em 1em 0.8em;
+    border-radius: 15px;
+    width: 45%;
+    margin: 0.8em;
+}
+
 #search p{
     
 }
@@ -166,6 +175,10 @@ header {
 a {
     text-decoration: none;
     color: white;
+}
+
+#highlights {
+    visibility: hidden;
 }
 input.search-bar, .city-input {
     border: none;
