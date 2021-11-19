@@ -12,7 +12,7 @@ let tripWind = 0;
 let tripGust = 0;
 
 //ADD BUTTON SELECTED CODE -- Stores location in 'destination' array and counts stops and days. Also creates delete button and eventlisteners for them.
-document.querySelector(".add-button").addEventListener("click", function () {
+document.querySelector(".add-button").addEventListener("click", function (e) {
     if ((totalDays + Number(document.querySelector(".days").value)) > 16) {//Check for the maximum number of days before proceeding
         alert("Accurate weather forecasts exist out to a maximum of 16 days. Please enter a number of days for this stop so the total trip is 16 days or less.");
         throw new Error("User entered too many days. Forecasts exist out to a maximum of 16 days.");
@@ -21,6 +21,7 @@ document.querySelector(".add-button").addEventListener("click", function () {
         alert("Please enter the number of days planned for this stop before trying to add it to your trip.");
         throw new Error("User forgot to enter the number of days for potential new stop.");
     }
+    this.disabled = true;
     let cityTest = document.querySelector(".search-bar").value;
     fetch("https://api.weatherbit.io/v2.0/forecast/daily?city=" + cityTest + "&units=I&key=" + weather.apiKey).then((response) => {
         if (response.status == "204" || response.status == "400") {//Check for location before proceeding
@@ -77,20 +78,11 @@ document.querySelector(".add-button").addEventListener("click", function () {
             document.getElementById("locationInput").placeholder = "Enter next city and state";
             document.getElementById("daysInput").value = "";
             document.getElementById("daysInput").placeholder = "# of days";
+            this.disabled = false;
             stopCounter++;//Increment the counter for number of stops
         }
     });
 });
-
-// const buttons = document.querySelectorAll(".delete-button");
-// console.log(buttons);
-// for (const button of buttons) {
-//     button.addEventListener('click', function () {
-//         console.log("test2");
-//         console.log(stopCounter);
-//         console.log(button.id);
-//     })
-// };
 
 //GENERATE TRIP BUTTON SELECTED CODE --> Calls featchWeather for each unique stop using stopCounter variable and organizes the created weather day cards in chronological order after a slight delay
 document.querySelector("#generate").addEventListener("click", function () {
@@ -105,6 +97,7 @@ document.querySelector("#generate").addEventListener("click", function () {
     document.getElementById("loading").append(loadingText);
     document.getElementById("loading").style.visibility = "visible";
     document.getElementById("results").style.visibility = "hidden";
+    document.getElementById("generate").style.visibility = "hidden";
     for (let i = 0; i < (stopCounter); i++) {//Next we fetch the api weather data 
         weather.fetchWeather(i, currentDay);
         currentDay = currentDay + iteration[i];
@@ -169,15 +162,14 @@ document.querySelector("#generate").addEventListener("click", function () {
         }
         tripHighlights();
         document.getElementById("loading").style.display = "none";//Make the loading screen hidden
-        document.getElementById("highlights").style.visibility = "visible";//Make the trip highlights piece visibile
+        document.getElementById("highlights").style.display = "block";//Make the trip highlights piece visibile
         document.getElementById("results").style.display = "inherit";//Make the sorted results visible
         document.getElementById("results").style.visibility = "visible";
     }, (totalDays * 1500));
-    //totalDays = 0; // Reset the global totalDays and iteration for use in another trip
-    //iteration = [];
-    //stopCounter = 0;
+    this.disabled = false;
 });
 
+//Weather object fetches weather forecast, creates weather cards for each day and location selected, and calls tripHighlights
 let weather = {
     apiKey: "68219aab5bbb48fe97a4f322fc15c400",
     fetchWeather: /*async*/ function (stop, day) {
@@ -249,15 +241,14 @@ let weather = {
             divCard.appendChild(windSpeed);
             divCard.appendChild(windGust);
             document.getElementById("results").append(divCard);
-
         }
     }
 };
 
-
-
+//tripHighlights just displays the max and min values for all days selected
 function tripHighlights() {
     let mainHighlights = document.getElementById("highlights");
+    mainHighlights.innerHTML = "";
     let tHigh = document.createElement("p");
     tHigh.innerText = "Highest temperature on trip:  " + tripHigh + " °F";
     let tLow = document.createElement("p");

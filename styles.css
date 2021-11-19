@@ -178,7 +178,7 @@ a {
 }
 
 #highlights {
-    visibility: hidden;
+    display: none;
 }
 input.search-bar, .city-input {
     border: none;
