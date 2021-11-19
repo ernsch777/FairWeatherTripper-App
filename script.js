@@ -1,17 +1,17 @@
-let totalDays = 0;
-let currentDay = 0;
-let stopCounter = 0;
-let destination = [];
-let iteration = [];
+let totalDays = 0;      //Must be 16 or lower due to weatherbit.io forecast limitation
+let currentDay = 0;     //Current day placeholder
+let stopCounter = 0;    //Number of stops
+let destination = [];   //List of stops
+let iteration = [];     //Days entered at each stop
 
-let tripHigh = 0;
+let tripHigh = 0;       //Collection of datapoints for whole trip entered
 let tripLow = 0;
 let tripPrecip = 0;
 let tripHumid = 0;
 let tripWind = 0;
 let tripGust = 0;
 
-//ADD BUTTON SELECTED CODE -- Stores location in 'destination' array and counts stops and days
+//ADD BUTTON SELECTED CODE -- Stores location in 'destination' array and counts stops and days. Also creates delete button and eventlisteners for them.
 document.querySelector(".add-button").addEventListener("click", function () {
     if ((totalDays + Number(document.querySelector(".days").value)) > 16) {//Check for the maximum number of days before proceeding
         alert("Accurate weather forecasts exist out to a maximum of 16 days. Please enter a number of days for this stop so the total trip is 16 days or less.");
@@ -32,8 +32,8 @@ document.querySelector(".add-button").addEventListener("click", function () {
             }
             totalDays = totalDays + Number(document.querySelector(".days").value);
             iteration.push(Number(document.querySelector(".days").value));
-            stopCounter++;
             let divDataEnter = document.createElement("Div");//create div for another stop
+            divDataEnter.id = "stop" + stopCounter;
             let cityInput = document.createElement("p");//solidify the location selected
             cityInput.innerText = document.querySelector(".search-bar").value;
             cityInput.classList.add("city-input");
@@ -44,19 +44,53 @@ document.querySelector(".add-button").addEventListener("click", function () {
             divDataEnter.appendChild(daysInput);
             let btnDelete = document.createElement("Button");//create a delete button
             btnDelete.classList.add("delete-button");
+            btnDelete.id = "del" + stopCounter;
             let textForButton = document.createTextNode("Delete");
             btnDelete.appendChild(textForButton);
             divDataEnter.appendChild(btnDelete);
+            //add functionality to remove the created div for that stop and reset all counters
+            btnDelete.addEventListener("click", function () {
+                let removeCounter = Number(btnDelete.parentNode.id.slice(-1));
+                let destroyDay = 0;
+                for (let i = 0; i < removeCounter; i++) {//Count the number of entries to remove from destination array
+                    destroyDay = destroyDay + iteration[i];
+                }
+                destination.splice(destroyDay, iteration[removeCounter]);//Remove entries to destination array
+                totalDays = totalDays - iteration[removeCounter];
+                iteration.splice(removeCounter, 1);//Remove entry in iteration array
+                let destroy = btnDelete.parentNode;//Remove the parent div altogether
+                destroy.remove();
+                //Loop through remaining stops to re-number their id tags for sorting purposes later
+                let childDivs = document.getElementById("search").getElementsByTagName("div");
+                for (let i = removeCounter; i < childDivs.length - 1; i++) {
+                    childDivs[i].id = "stop" + i;
+                    console.log(childDivs[i].id);
+                }
+                stopCounter = stopCounter - 1;//Reset stopCounter to exclude deleted stop
+                console.log(childDivs);
+                console.log(destination);
+            });
             let inputDiv = document.getElementById("data-enter");
             let parentDiv = inputDiv.parentNode;
-            parentDiv.insertBefore(divDataEnter, inputDiv);
-            document.getElementById("locationInput").value = "";
+            parentDiv.insertBefore(divDataEnter, inputDiv);//Insert newly created div
+            document.getElementById("locationInput").value = "";//Reset the input values for another possible stop to be put in
             document.getElementById("locationInput").placeholder = "Enter next city and state";
             document.getElementById("daysInput").value = "";
             document.getElementById("daysInput").placeholder = "# of days";
+            stopCounter++;//Increment the counter for number of stops
         }
     });
 });
+
+// const buttons = document.querySelectorAll(".delete-button");
+// console.log(buttons);
+// for (const button of buttons) {
+//     button.addEventListener('click', function () {
+//         console.log("test2");
+//         console.log(stopCounter);
+//         console.log(button.id);
+//     })
+// };
 
 //GENERATE TRIP BUTTON SELECTED CODE --> Calls featchWeather for each unique stop using stopCounter variable and organizes the created weather day cards in chronological order after a slight delay
 document.querySelector("#generate").addEventListener("click", function () {
@@ -246,37 +280,13 @@ function tripHighlights() {
 
 
 
-// let addToDoButton = document.getElementById('addToDo');
-// let toDoContainer = document.getElementById('toDoContainer');
-// let inputField = document.getElementById('inputField');
 
-// addToDoButton.addEventListener('click', function(){
-//     var paragraph = document.createElement('p');
 //     paragraph.classList.add('paragraph-styling');
-//     paragraph.innerhtml = inputField.value;
-//     toDoContainer.appendChild(paragraph);
-//     inputField.value = "";
 //     document.body.onload = addElement;
 
 
-
-// function addElement () {
-//     // create a new div element
-//     const newDiv = document.createElement("div");
-
-//     // and give it some content
-//     const newContent = document.createTextNode("Hi there and greetings!");
-
-//     // add the text node to the newly created div
-//     newDiv.appendChild(newContent);
-
-//     // add the newly created element and its content into the DOM
-//     const currentDiv = document.getElementById("div1");
-//     document.body.insertBefore(newDiv, currentDiv);}
-
 // To-Do items:
 // 1. Add delete button functionality
-// 2. Add trip highlights
 // 3. Prettify website
 // 4. Host site online with Netlify
 
