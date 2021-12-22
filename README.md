@@ -17,4 +17,14 @@
 17. Added trip highlight section. Needs formatting but functionality is working.
 18. Added delete button functionality. Was a little tricky to remove the stop's location and days from the running totals while renaming the weather card divs previously added. Proud of it.
 19. Got rid of the double clik problem on the add stop and generate buttons. More reformatting, code comments updated, and sorted. 
-20. 
+20. After a break away from this project, it's time to design the final front end design and layout. Will add some animations and get it production ready. 
+
+
+
+
+Future improvements and feature list:
+1) Add google map API to increase the location input options
+2) 
+
+
+
