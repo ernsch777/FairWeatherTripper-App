@@ -10,20 +10,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400&family=Hind+Siliguri:wght@300;400&family=Montserrat:wght@300;400&family=Open+Sans:wght@300;400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Welcome to Fair Weather Tripper</h1>
-        <h2 class="subheader">&nbsp;&nbsp;A way to plan your outdoor adventures!</h2>
+    <header> 
+        <div class="headerMain">
+            <h1>Fair Weather Tripper</h1>
+        </div>
     </header>
     <section class="main">
         <div class="searchMain">
+            <h2 class="subheader">All the weather for every leg of your trip </h2>
             <div id="search">
                 <div class="form-control" id="data-enter">
                     <input id="locationInput" type="text" class="search-bar" placeholder="Enter city and state">
                     <input id="daysInput" type="text" class="days" placeholder="# of days">
-                    <button class="add-button">Add</button>
+                    <br>
+                    <button class="add-button">Add new stop</button>
                 </div>
             </div>
-            <button id="generate">Generate Trip</button>
+            <button id="generate">Generate Weather Itinerary</button>
         </div>
         <div id="highlights"></div>
         <!-- <div class="map">
