@@ -17,14 +17,19 @@
 17. Added trip highlight section. Needs formatting but functionality is working.
 18. Added delete button functionality. Was a little tricky to remove the stop's location and days from the running totals while renaming the weather card divs previously added. Proud of it.
 19. Got rid of the double clik problem on the add stop and generate buttons. More reformatting, code comments updated, and sorted. 
-20. After a break away from this project, it's time to design the final front end design and layout. Will add some animations and get it production ready. 
+20. After a month break away from this project, it's time to design the final front end design and layout. Will add some animations and get it production ready. 
+21. Found new background image, title font, new logo and catch phrases for the site, and new layout idea. Also fixed a math error in low temp calculation. Need a good cursive font and figure out how to hide necessary sections as next steps. 
 
 
 
 
 Future improvements and feature list:
-1) Add google map API to increase the location input options
-2) 
+1) Host site online with Netlify
+2) Redesign searchMain, loading, and highlight window visibility
+3) Get better fonts to make weather cards more readable
+4) Add google maps interface and display
+5) Research 504 error handling more and try to fix for large # of stops
+6) 
 
 
 
