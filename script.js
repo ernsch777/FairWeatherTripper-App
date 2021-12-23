@@ -5,7 +5,7 @@ let destination = [];   //List of stops
 let iteration = [];     //Days entered at each stop
 
 let tripHigh = 0;       //Collection of datapoints for whole trip entered
-let tripLow = 0;
+let tripLow = 200;
 let tripPrecip = 0;
 let tripHumid = 0;
 let tripWind = 0;
@@ -209,7 +209,7 @@ let weather = {
             }
             let low = document.createElement("h3");
             low.innerText = "Low:  " + data.data[cardDay].low_temp + " °F";
-            if (data.data[cardDay].high_temp > tripLow) {
+            if (data.data[cardDay].low_temp < tripLow) {
                 tripLow = data.data[cardDay].low_temp;
             }
             let precip = document.createElement("h4");
@@ -277,10 +277,9 @@ function tripHighlights() {
 
 
 // To-Do items:
-// 1. Add delete button functionality
-// 3. Prettify website
-// 4. Host site online with Netlify
-
+// 1. Host site online with Netlify
+// 2. DONE
+// 3. Redesign searchMain, loading, and highlight window visibility
+// 4. Get better fonts to make weather cards more readable
 // 5. Add google maps interface and display
 // 6. Research 504 error handling more and try to fix for large # of stops (stop into freecodecamp)
-// 7. Change generate button to "Plan Another Trip" text and functionality
