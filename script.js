@@ -62,7 +62,7 @@ document.querySelector(".add-button").addEventListener("click", function (e) {
                 let destroy = btnDelete.parentNode;//Remove the parent div altogether
                 destroy.remove();
                 //Loop through remaining stops to re-number their id tags for sorting purposes later
-                let childDivs = document.getElementById("search").getElementsByTagName("div");
+                let childDivs = document.getElementById("mainForm").getElementsByTagName("div");
                 for (let i = removeCounter; i < childDivs.length - 1; i++) {
                     childDivs[i].id = "stop" + i;
                     console.log(childDivs[i].id);
@@ -86,66 +86,67 @@ document.querySelector(".add-button").addEventListener("click", function (e) {
 
 //GENERATE TRIP BUTTON SELECTED CODE --> Calls featchWeather for each unique stop using stopCounter variable and organizes the created weather day cards in chronological order after a slight delay
 document.querySelector("#generate").addEventListener("click", function () {
-    let generatingText = document.createElement("Div");//When clicked, we first append the loading text and make it visibile while keeping the generated results hidden until results are complete and sorted
-    generatingText.classList.add("loading-text");
-    generatingText.innerText = "Generating your dream getaway as we speak. ";
-    let loadingText = document.createElement("Div");
-    loadingText.classList.add("loading-text");
-    loadingText.innerText = "LO.....";
-    loadingText.id = "loading-steps";
-    document.getElementById("loading").append(generatingText);
-    document.getElementById("loading").append(loadingText);
+    //When clicked make visibile the weather animation while keeping the generated results hidden until results are complete and sorted
+    // let generatingText = document.createElement("Div");
+    // generatingText.classList.add("loading-text");
+    // generatingText.innerText = "Never forget your mittens again! ";
+    // let loadingText = document.createElement("Div");
+    // loadingText.classList.add("loading-text");
+    // loadingText.innerText = "LO.....";
+    // loadingText.id = "loading-steps";
+    //document.getElementById("loading").append(generatingText);
+    // document.getElementById("loading").append(loadingText);
     document.getElementById("loading").style.visibility = "visible";
     document.getElementById("results").style.visibility = "hidden";
-    document.getElementById("generate").style.visibility = "hidden";
+    document.getElementById("mainArea").style.display = "none";
     for (let i = 0; i < (stopCounter); i++) {//Next we fetch the api weather data 
         weather.fetchWeather(i, currentDay);
         currentDay = currentDay + iteration[i];
     }
-    setTimeout(function () {//While fetching the data, we spell out "LOADING...." to let the user know the app is working behind the scenes
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOA....";
-    }, 1500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOAD...";
-    }, 3500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADI..";
-    }, 5500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADIN.";
-    }, 7500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADING";
-    }, 9500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADING.";
-    }, 11500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADING..";
-    }, 13500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADING...";
-    }, 15500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADING....";
-    }, 17500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADING.....";
-    }, 19500);
-    setTimeout(function () {
-        let loading = document.getElementById("loading-steps");
-        loading.innerHTML = "LOADING......";
-    }, 22000);
+    // setTimeout(function () {//While fetching the data, we spell out "LOADING...." to let the user know the app is working behind the scenes
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOA....";
+    // }, 1500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOAD...";
+    // }, 3500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADI..";
+    // }, 5500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADIN.";
+    // }, 7500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADING";
+    // }, 9500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADING.";
+    // }, 11500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADING..";
+    // }, 13500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADING...";
+    // }, 15500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADING....";
+    // }, 17500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADING.....";
+    // }, 19500);
+    // setTimeout(function () {
+    //     let loading = document.getElementById("loading-steps");
+    //     loading.innerHTML = "LOADING......";
+    // }, 22000);
     setTimeout(function () {//We must time the display of the weather cards to ensure they are in chronological order and ready to be fully displayed, otherwise async/await will display them when done and out of order
         let mylist = document.getElementById("results");
         let divs = mylist.getElementsByTagName("div");
@@ -203,32 +204,32 @@ let weather = {
             let city = document.createElement("h2");//start creating all of the weather data details
             city.innerText = data.city_name;
             let high = document.createElement("h3");
-            high.innerText = "High:  " + data.data[cardDay].high_temp + " °F";
+            high.innerHTML = "High: &nbsp" + data.data[cardDay].high_temp + " °F";
             if (data.data[cardDay].high_temp > tripHigh) {
                 tripHigh = data.data[cardDay].high_temp;
             }
             let low = document.createElement("h3");
-            low.innerText = "Low:  " + data.data[cardDay].low_temp + " °F";
+            low.innerHTML = "Low: &nbsp" + data.data[cardDay].low_temp + " °F";
             if (data.data[cardDay].low_temp < tripLow) {
                 tripLow = data.data[cardDay].low_temp;
             }
             let precip = document.createElement("h4");
-            precip.innerText = "Precipitation:  " + data.data[cardDay].pop + " %";
+            precip.innerHTML = "Precipitation: &nbsp" + data.data[cardDay].pop + " %";
             if (data.data[cardDay].pop > tripPrecip) {
                 tripPrecip = data.data[cardDay].pop;
             }
             let humidity = document.createElement("h4");
-            humidity.innerText = "Humidity:   " + data.data[cardDay].rh + "%";
+            humidity.innerHTML = "Humidity: &nbsp" + data.data[cardDay].rh + "%";
             if (data.data[cardDay].rh > tripHumid) {
                 tripHumid = data.data[cardDay].rh;
             }
             let windSpeed = document.createElement("h4");
-            windSpeed.innerText = "Wind speed:   " + data.data[cardDay].wind_spd + " mph";
+            windSpeed.innerHTML = "Wind speed: &nbsp" + data.data[cardDay].wind_spd + " mph";
             if (data.data[cardDay].wind_spd > tripWind) {
                 tripWind = data.data[cardDay].wind_spd;
             }
             let windGust = document.createElement("h4");
-            windGust.innerText = "Wind gusts:   " + data.data[cardDay].wind_gust_spd + " mph";
+            windGust.innerHTML = "Wind gusts: &nbsp" + data.data[cardDay].wind_gust_spd + " mph";
             if (data.data[cardDay].wind_gust_spd > tripGust) {
                 tripGust = data.data[cardDay].wind_gust_spd;
             }
@@ -280,6 +281,6 @@ function tripHighlights() {
 // 1. Host site online with Netlify
 // 2. DONE
 // 3. Redesign searchMain, loading, and highlight window visibility
-// 4. Get better fonts to make weather cards more readable
+// 4. DONE
 // 5. Add google maps interface and display
-// 6. Research 504 error handling more and try to fix for large # of stops (stop into freecodecamp)
+// 6. Research 504 error handling more and try to fix for large # of stops 

@@ -21,17 +21,16 @@
                 <div class="rain rainHeader"></div>
             </div>
         </div>
-        <h2 class="subheader">Never forget your mittens again</h2>
     </header>
     <section class="main">
-        <div class="searchMain">
+        <div id="mainArea" class="search">
             <h2 class="maintext">All the weather for every leg of your trip </h2>
-            <div id="search">
+            <div id="mainForm">
                 <div class="form-control" id="data-enter">
                     <input id="locationInput" type="text" class="search-bar" placeholder="Enter city and state">
-                    <input id="daysInput" type="text" class="days" placeholder="# of days">
+                    <input id="daysInput" type="text" class="days" placeholder="Enter # of days">
                     <br>
-                    <button class="add-button">Add new stop</button>
+                    <button class="add-button">Add Location</button>
                 </div>
             </div>
             <button id="generate">Generate Weather Itinerary</button>
@@ -43,6 +42,8 @@
     </section>  
     <section class="weather-cards">
         <div id="loading">
+            <h2 class="loading-text">Never forget your mittens again! </h2>
+            <!-- <h2 class="loading-text">Loading...</h2> -->
             <div class="icon sun-shower">
                 <div class="cloud"></div>
                 <div class="sun">
