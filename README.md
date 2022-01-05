@@ -25,7 +25,7 @@
 
 
 
-Future improvements and feature list:
+Future improvements, new features, and known bugs list:
 1) Host site online with Netlify
 2) Redesign searchMain, loading, and highlight window visibility - DONE
 3) Get better fonts to make weather cards more readable - DONE
