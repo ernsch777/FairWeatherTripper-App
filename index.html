@@ -35,7 +35,6 @@
             </div>
             <button id="generate">Generate Weather Itinerary</button>
         </div>
-        <div id="highlights"></div>
         <!-- <div class="map">
             <p>Coming later from google api</p>
         </div> -->
@@ -43,7 +42,6 @@
     <section class="weather-cards">
         <div id="loading">
             <h2 class="loading-text">Never forget your mittens again! </h2>
-            <!-- <h2 class="loading-text">Loading...</h2> -->
             <div class="icon sun-shower">
                 <div class="cloud"></div>
                 <div class="sun">
@@ -53,8 +51,16 @@
             </div>
         </div>
     </section>
-    <div id="results" class="weather-cards">
-    </div>
+    <section class="output"></section>
+        <div id="highlights">
+            <h1 class="results-title">Weather Highlights For Your Selected Trip</h1>
+            <div id="highlights-columns">
+                <div id="main-highlights"></div>
+                <div id="second-highlights"></div>
+            </div>
+        </div>
+        <div id="results" class="weather-cards"></div>
+    </section>
     <script src="script.js"></script> 
 </body>
 </html>

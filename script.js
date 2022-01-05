@@ -248,29 +248,31 @@ let weather = {
 
 //tripHighlights just displays the max and min values for all days selected
 function tripHighlights() {
-    let mainHighlights = document.getElementById("highlights");
+    let mainHighlights = document.getElementById("main-highlights");
     mainHighlights.innerHTML = "";
+    let secondHighlights = document.getElementById("second-highlights");
+    secondHighlights.innerHTML = "";
     let tHigh = document.createElement("p");
-    tHigh.innerText = "Highest temperature on trip:  " + tripHigh + " °F";
+    tHigh.innerHTML = "Highest temperature on trip: &nbsp" + tripHigh + " °F";
     let tLow = document.createElement("p");
-    tLow.innerText = "Lowest temperature on trip:  " + tripLow + " °F";
+    tLow.innerHTML = "Lowest temperature on trip: &nbsp" + tripLow + " °F";
     let tPrecip = document.createElement("p");
-    tPrecip.innerText = "Highest precipitation expected:  " + tripPrecip + " %";
+    tPrecip.innerHTML = "Highest precipitation expected: &nbsp" + tripPrecip + " %";
     let tHumid = document.createElement("p");
-    tHumid.innerText = "Highest humidity expected:   " + tripHumid + "%";
+    tHumid.innerHTML = "Highest humidity expected: &nbsp" + tripHumid + "%";
     let tWind = document.createElement("p");
-    tWind.innerText = "Wind speed:   " + tripWind + " mph";
+    tWind.innerHTML = "Maximum wind speed: &nbsp" + tripWind + " mph";
     let tGust = document.createElement("p");
-    tGust.innerText = "Wind gusts:   " + tripGust + " mph";
+    tGust.innerHTML = "Maximum wind gusts: &nbsp" + tripGust + " mph";
     mainHighlights.appendChild(tHigh);
-    mainHighlights.appendChild(tLow);
     mainHighlights.appendChild(tPrecip);
     mainHighlights.appendChild(tHumid);
-    mainHighlights.appendChild(tWind);
-    mainHighlights.appendChild(tGust);
+    secondHighlights.appendChild(tLow);
+    secondHighlights.appendChild(tWind);
+    secondHighlights.appendChild(tGust);
+    document.getElementById("highlights-columns").append(mainHighlights);
+    document.getElementById("highlights-columns").append(secondHighlights);
 }
-
-
 
 
 //     paragraph.classList.add('paragraph-styling');
@@ -280,7 +282,7 @@ function tripHighlights() {
 // To-Do items:
 // 1. Host site online with Netlify
 // 2. DONE
-// 3. Redesign searchMain, loading, and highlight window visibility
+// 3. DONE
 // 4. DONE
 // 5. Add google maps interface and display
 // 6. Research 504 error handling more and try to fix for large # of stops 

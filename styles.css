@@ -52,7 +52,7 @@ body {
 }
 /* Header code *****************************************/
 header {
-    margin: 2rem 0 0rem 0;
+    margin: 2rem 0 0 0;
     width: 80%;
     max-width: 1200px;
     display: flex;
@@ -275,14 +275,30 @@ button:hover {
     color: white;
     padding: 1rem;
     border-radius: 15px;
-    width: 45%;
+    width: 70%;
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
     display: none;
+}
+#highlights-columns {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.4rem;
+    padding: 0 0 1rem 0;
+    line-height: 3.5rem;
+}
+.results-title{
+    font-family: 'Hind Siliguri', sans-serif;
+    text-align: center;
+    font-size: 2.7em;
+    padding: 0.5rem;
 }
 #results{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 1rem;
     display: none;
 }
 /* Loading animation section **************************/
@@ -302,10 +318,7 @@ button:hover {
     color: white;
     margin: 0 auto;
     padding: 1.5rem 0.5rem 1rem 0.5rem;
-    /* font-family: 'Give You Glory', cursive; */
-    /* font-family: 'Italianno', cursive; */
     font-family: 'Nothing You Could Do', cursive;
-    /* font-family: 'Over the Rainbow', cursive; */
 }
 .icon {
     margin: 0 auto;
@@ -434,8 +447,18 @@ button:hover {
     }
 }
 @media screen and ( max-width: 1050px){
-    .search, #loading {
-        width: 90%;
+    body {
+        background-attachment: fixed;
+    }
+    .search, #loading, #highlights {
+        width: 80%;
+    }
+    .results-title{
+        font-size: 2em;
+        padding: 0.5rem 0.25rem 0.25rem 0.25rem;
+    }
+    .maintext {
+        font-size: 1.9em;
     }
 }
 @media screen and ( max-width: 880px){
@@ -448,6 +471,9 @@ button:hover {
         align-items: center;
         justify-content: center;
     }
+    .maintext {
+        font-size: 2.1em;
+    }
     .add-button {
         margin: 1rem;
         height: 2rem;
@@ -455,26 +481,169 @@ button:hover {
         font-size: 1rem;
         margin-left: 0;
     }
+    #highlights-columns {
+        font-size: 1.5rem;
+        line-height: 3rem;
+    }
 }
 @media screen and ( max-width: 700px){
     body {
         background-size: 200%;
-        background-position: left top;
+        background-position: center top;
+    } 
+    .search, #loading, #highlights {
+        width: 87%;
     }
     .maintext {
         font-size: 1.8em;
     }
+    .loading-text {
+        font-size: 2.2em;
+        padding: 1.5rem 0.25rem 1rem 0rem;
+    }
+    .results-title{
+        font-size: 2.1em;
+        padding: 0.5rem 0.25rem 0.5rem 0.25rem;
+    }
+    #highlights-columns {
+        font-size: 1.2rem;
+        line-height: 2.5rem;
+    }
 }
-@media screen and ( max-width: 550px){
+@media screen and ( max-width: 570px){
     html {
-        font-size: 10px;
+        font-size: 14px;
     }
     body {
         background-size: 300%;
-        background-position: center top;
     } 
+    .headerMain {
+        font-size: 12px;
+        margin: 2rem auto;
+        width: 13rem;
+    }
+    .search, #loading {
+        margin-top: 2rem;
+    }
+    .main {
+        margin-bottom: 0;
+    }
     .maintext {
+        font-size: 1.8em;
+        text-align: left;
+    }
+    input.search-bar {
+        width: 100%;
+        display: block;
+    }
+    .add-button {
+        width: 9rem;
+        margin: 0.4rem 0;
+        padding: 0rem 0.5rem;
+        font-size: 1.1rem;
+        margin-left: 0;
+        display: inline-block;
+    }
+    .delete-button {
+        margin: 0 0 0.5rem 0.5rem;
+        height: 2rem;
+        width: calc(50% - 0.25rem);
+        font-size: 1.2rem;
+    }
+    #generate {
+        margin: 0 auto;
+        margin-top: 1.5rem;
+        border: solid 1px rgb(129, 129, 129);
+        font-size: 1.2em;
+        width: 100%;
+        height: 2.5rem;
+    }
+    .city-input {
+        margin: 0.4rem 0;
+        padding: 0rem 0.5rem;
+        border-radius: 0.6rem;
+        background: #7c7c7c2b;
+        color: white;
+        font-size: 1.2rem;
+        height: 2rem;
+        width: 100%;
+        display: inline-block;
+        text-align: inherit;
+        border: solid 1px rgb(129, 129, 129);
+    }
+    input.days{
+        margin: 0.6rem 0 0.2rem 0;
+        border: none;
+        outline: none;
+        padding: 0.3rem 0.4rem;
+        border-radius: 0.6rem;
+        background: #7c7c7c2b;
+        color: white;
+        font-size: 1.2rem;
+        height: 2rem;
+        width: 100%;
+        display: inline-block;
+        border: solid 1px rgb(129, 129, 129);
+    }
+    .daysInput{
+        margin-left: 0;
+        padding: 0rem 0.5rem;
+        font-size: 1.2rem;
+        height: 2rem;
+        width: calc(50% - 0.25rem);
+        display: inline-block;
+        text-align: inherit;
+    }
+    .loading-text {
+        font-size: 2.2em;
+        text-align: center;
+        padding: 1.5rem 1rem 1rem 1rem;
+    }
+    .icon {
+        font-size: 1.2rem; /* control icon size here */
+    }
+    #highlights {
+        padding: 1rem;
+        margin: 1rem;
+    }
+    .results-title{
         font-size: 2em;
+        padding: 0.5rem;
+        line-height: 2.5rem;
+    }
+    #highlights-columns {
+        flex-direction: column;
+        text-align: center;
+        font-size: 1.25rem;
+        padding: 0;
+    }
+    .weather-cards {
+        width: 100%;
+    }
+    .dayCard{
+        font-size: 12px;
+        padding: 1em;
+        line-height: 2em;
+        width: 11rem;
+        margin: 0.7em;
+    }
+    .dayCard h1{
+        font-family: 'Hind Siliguri', sans-serif;
+        text-align: center;
+        font-size: 2em;
+        padding-bottom: 0.5rem;
+    }
+    .dayCard h2{
+        padding-bottom: 0.3rem;
+        font-size: 1.8em;
+        text-align: center;
+        font-family: 'Hind Siliguri', sans-serif;
+        font-weight: 300;
+    }
+    .dayCard h3, .dayCard h4{
+        font-family: 'Hind Siliguri', sans-serif;
+        font-size: 1.1em;
+        font-weight: 300;
     }
     /* header {
         padding: 0 .7em;
