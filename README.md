@@ -16,11 +16,11 @@
 16. Spent hours reorganizing and simplifying the code. Once it was more clean, cut the number of calls to weatherbit.io and this should help with 504 error. Their server is still slow, so there is still a chance for this error to show itself for large number of stops and simultaneous data calls. But the code is clean now, all calls are working properly, and cards are being created, sorted, and displayed properly. 
 17. Added trip highlight section. Needs formatting but functionality is working.
 18. Added delete button functionality. Was a little tricky to remove the stop's location and days from the running totals while renaming the weather card divs previously added. Proud of it.
-19. Got rid of the double clik problem on the add stop and generate buttons. More reformatting, code comments updated, and sorted. 
+19. Got rid of the double click problem on the add stop and generate buttons. More reformatting, code comments updated, and sorted. 
 20. After a month break away from this project, it's time to design the final front end design and layout. Will add some animations and get it production ready. 
 21. Found new background image, title font, new logo and catch phrases for the site, and new layout idea. Also fixed a math error in low temp calculation. Need a good cursive font and figure out how to hide necessary sections as next steps. 
 22. After a holiday break, 1) fixed background image position and responsiveness 2) cleaned up css code 3) hid search and loading screens properly 4) added animation for loading screen instead of loading text 5) made cards readable and fixed fonts 6) moved cursive font to make it work visually. Landing page is now responsive except for small phones, but also need to make results and loading screens to catch up. Spice up the results window and make size match other windows. After that should be production ready. 
-23. Site is production ready. Finished results window, responsiveness and layout, and tweekd a couple of final errors. Excited. 
+23. Site is production ready. Finished results window, responsiveness and layout, and tweeked a couple of final errors. Excited. 
 
 
 
