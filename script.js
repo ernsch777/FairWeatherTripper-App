@@ -87,15 +87,6 @@ document.querySelector(".add-button").addEventListener("click", function (e) {
 //GENERATE TRIP BUTTON SELECTED CODE --> Calls featchWeather for each unique stop using stopCounter variable and organizes the created weather day cards in chronological order after a slight delay
 document.querySelector("#generate").addEventListener("click", function () {
     //When clicked make visibile the weather animation while keeping the generated results hidden until results are complete and sorted
-    // let generatingText = document.createElement("Div");
-    // generatingText.classList.add("loading-text");
-    // generatingText.innerText = "Never forget your mittens again! ";
-    // let loadingText = document.createElement("Div");
-    // loadingText.classList.add("loading-text");
-    // loadingText.innerText = "LO.....";
-    // loadingText.id = "loading-steps";
-    //document.getElementById("loading").append(generatingText);
-    // document.getElementById("loading").append(loadingText);
     document.getElementById("loading").style.visibility = "visible";
     document.getElementById("results").style.visibility = "hidden";
     document.getElementById("mainArea").style.display = "none";
@@ -103,50 +94,6 @@ document.querySelector("#generate").addEventListener("click", function () {
         weather.fetchWeather(i, currentDay);
         currentDay = currentDay + iteration[i];
     }
-    // setTimeout(function () {//While fetching the data, we spell out "LOADING...." to let the user know the app is working behind the scenes
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOA....";
-    // }, 1500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOAD...";
-    // }, 3500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADI..";
-    // }, 5500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADIN.";
-    // }, 7500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADING";
-    // }, 9500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADING.";
-    // }, 11500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADING..";
-    // }, 13500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADING...";
-    // }, 15500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADING....";
-    // }, 17500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADING.....";
-    // }, 19500);
-    // setTimeout(function () {
-    //     let loading = document.getElementById("loading-steps");
-    //     loading.innerHTML = "LOADING......";
-    // }, 22000);
     setTimeout(function () {//We must time the display of the weather cards to ensure they are in chronological order and ready to be fully displayed, otherwise async/await will display them when done and out of order
         let mylist = document.getElementById("results");
         let divs = mylist.getElementsByTagName("div");
@@ -273,11 +220,6 @@ function tripHighlights() {
     document.getElementById("highlights-columns").append(mainHighlights);
     document.getElementById("highlights-columns").append(secondHighlights);
 }
-
-
-//     paragraph.classList.add('paragraph-styling');
-//     document.body.onload = addElement;
-
 
 // To-Do items:
 // 1. Host site online with Netlify
