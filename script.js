@@ -228,3 +228,4 @@ function tripHighlights() {
 // 4. DONE
 // 5. Add google maps interface and display
 // 6. Research 504 error handling more and try to fix for large # of stops 
+// 7. Refactor the code. I'd like to use template literals to decrease the appendchilds I needed for more standard HTML markup
